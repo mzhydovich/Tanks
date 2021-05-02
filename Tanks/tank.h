@@ -9,6 +9,8 @@
 #include <QGraphicsScene>
 
 #include "windows.h"
+#include <QScreen>
+#include <QGuiApplication>
 
 class Tank : public QObject, public QGraphicsItem
 {
@@ -20,15 +22,20 @@ public:
 signals:
 
 public slots:
-    void slotGameTimer(); // Слот, который отвечает за обработку перемещения треугольника
+    void slotGameTimer1(); //moving by VK
+    void slotGameTimer2(); //moving by WASD
 
 protected:
     QRectF boundingRect() const;
     QPainterPath shape() const;
+
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 private:
-    qreal angle;    // Угол поворота графического объекта
+    int width = QGuiApplication::screens().at(0)->availableGeometry().width();
+    int height = QGuiApplication::screens().at(0)->availableGeometry().height();
+
+    qreal angle; //angle
 
 };
 

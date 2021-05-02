@@ -1,14 +1,24 @@
 #include "mainscene.h"
-
+#include "map_creator.h"
+#include <QApplication>
+#include <QDebug>
 MainScene::MainScene(QWidget *parent)
     : QGraphicsView(parent) {
 
+    int w = QGuiApplication::screens().at(0)->availableGeometry().width() /2;
+    int h = QGuiApplication::screens().at(0)->availableGeometry().height() /2;
+    //this->setFixedSize(w,h);    /// Фиксируем размеры виджета
+
+    scene = new QGraphicsScene();   // Initialize the scene for rendering
+    this->resize(w*2, h*2 - 75);
+    scene->setSceneRect(-w,-h+75,w*2 -2,h*2 - 75); /// Устанавливаем область графической сцены
+    this->setScene(scene);
+
+    this->setRenderHint(QPainter::Antialiasing);    /// Устанавливаем сглаживание
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Отключим скроллбар по горизонтали
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);   // Отключим скроллбар по вертикали
     this->setAlignment(Qt::AlignCenter);                        // Делаем привязку содержимого к центру
-    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    scene = new QGraphicsScene();   // Инициализируем сцену для отрисовки
+    this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
 
     //QImage back_image(":/images/vova.jpg");
@@ -17,34 +27,31 @@ MainScene::MainScene(QWidget *parent)
     //back_brush.setTextureImage(back_image);
     //scene->setBackgroundBrush(back_brush);
 
-    scene->addLine(-300,-300, 300,-300, QPen(Qt::black));
-    scene->addLine(-300, 300, 300, 300, QPen(Qt::black));
-    scene->addLine(-300,-300,-300, 300, QPen(Qt::black));
-    scene->addLine( 300,-300, 300, 300, QPen(Qt::black));
+    scene->addLine(-w,-h + 75, w,-h + 75, QPen(Qt::black));//верхняя граница
+    scene->addLine(-w,h, w,h, QPen(Qt::black));//нижняя граница
+    scene->addLine(-w,-h + 75, -w,h, QPen(Qt::black));//левая
+    scene->addLine( w,-h + 75, w,h, QPen(Qt::black));//правая
 
-    Wall* wall1 = new Wall(scene);
-    Wall* wall2 = new Wall(scene);
-    Wall* wall3 = new Wall(scene);
-    tank = new Tank();
-    scene->addItem(wall1);
-    scene->addItem(wall2);
-    scene->addItem(wall3);
-    wall1->setPos(100, 50);
-    wall2->setPos(150, 50);
-    wall3->setPos(200, 50);
+    //scene->addLine(0,0, this->width() ,this->height(), QPen(Qt::black));//верхняя граница
 
-    scene->addItem(tank);   /// Добавляем на сцену треугольник
-    tank->setPos(-50,0);      /// Устанавливаем треугольник в центр сцены
+    MapCreator map_creator;
+    map_creator.setFile("C:\\Users\\user\\Desktop\\kursovaya\\Tanks\\Tanks\\map.txt");
+    map_creator.CreateMap(scene);
 
-    /* Инициализируем таймер и вызываем слот обработки сигнала таймера
-     * у Треугольника 20 раз в секунду.
-     * Управляя скоростью отсчётов, соответственно управляем скоростью
-     * изменения состояния графической сцены
-     * */
+    tank1 = new Tank();
+    tank2 = new Tank();
+
+    scene->addItem(tank1);   /// Добавляем на сцену треугольник
+    tank1->setPos(0,0);      /// Устанавливаем треугольник в центр сцены
+    scene->addItem(tank2);   /// Добавляем на сцену треугольник
+    tank2->setPos(50,50);
+
     timer = new QTimer();
-    connect(timer, &QTimer::timeout, tank, &Tank::slotGameTimer);
-    timer->start(1000 / 50);
+    connect(timer, &QTimer::timeout, tank1, &Tank::slotGameTimer1);
 
+    //timer2 = new QTimer();
+    connect(timer, &QTimer::timeout, tank2, &Tank::slotGameTimer2);
+    timer->start(1000 / 50);
+    //timer2->start(1000 / 50);
     this->setScene(scene);
 }
-

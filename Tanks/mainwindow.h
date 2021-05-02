@@ -3,11 +3,8 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QVBoxLayout>
 #include "mainscene.h"
-
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
@@ -15,10 +12,12 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    //~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
-    MainScene* main_scene;
+
+    QWidget* game_window;
 };
+
+
 #endif // MAINWINDOW_H

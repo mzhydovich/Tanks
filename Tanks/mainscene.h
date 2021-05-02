@@ -6,17 +6,24 @@
 #include <QPainter>
 #include "wall.h"
 #include "tank.h"
+#include <QSize>
+#include <QWidget>
+
 
 class MainScene : public QGraphicsView
 {
 public:
     explicit MainScene(QWidget *parent = 0);
 
-
 private:
+
+
     QGraphicsScene      *scene;     // Объявляем сцену для отрисовки
-    Tank* tank;
-    QTimer          *timer;     /* Объявляем игровой таймер, благодаря которому
+    Tank* tank1;
+    QTimer          *timer;
+    Tank* tank2;
+    QTimer          *timer2;
+    /* Объявляем игровой таймер, благодаря которому
                                  * будет производиться изменения положения объекта на сцене
                                  * При воздействии на него клавишами клавиатуры
                                  * */

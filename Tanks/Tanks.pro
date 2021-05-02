@@ -1,4 +1,4 @@
-QT       += core gui widgets
+QT       += widgets core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,17 +12,17 @@ SOURCES += \
     main.cpp \
     mainscene.cpp \
     mainwindow.cpp \
+    map_creator.cpp \
     tank.cpp \
     wall.cpp
 
 HEADERS += \
     mainscene.h \
     mainwindow.h \
+    map_creator.h \
     tank.h \
     wall.h
-
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -30,3 +30,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES +=
+
+DISTFILES += \
+    map.txt
