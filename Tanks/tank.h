@@ -11,6 +11,7 @@
 #include "windows.h"
 #include <QScreen>
 #include <QGuiApplication>
+#include "target.h"
 
 class Tank : public QObject, public QGraphicsItem
 {
@@ -18,9 +19,10 @@ class Tank : public QObject, public QGraphicsItem
 public:
     explicit Tank(QObject *parent = 0);
     ~Tank();
-
+Target* target;
+void hit(int damdge);
 signals:
-
+ void signalBullet(QPointF start ,QPointF target);
 public slots:
     void slotGameTimer1(); //moving by VK
     void slotGameTimer2(); //moving by WASD
@@ -36,7 +38,8 @@ private:
     int height = QGuiApplication::screens().at(0)->availableGeometry().height();
 
     qreal angle; //angle
-
+int health;
+int maxhealth;
 };
 
 #endif // TANK_H

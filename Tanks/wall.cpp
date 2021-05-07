@@ -18,7 +18,7 @@ QRectF Wall::boundingRect() const
 
 void Wall::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-        QImage texture_image("C:\\Users\\user\\Desktop\\kursovaya\\Tanks\\Tanks\\bricks.png");
+        QImage texture_image("D:\\Qt\\tanks\\Tanks\\Tanks\\bricks.png");
         QBrush texture_brush(Qt::TexturePattern);
         painter->drawImage(QRectF(0, 0, 50, 50), texture_image);
         //painter->drawRect(0, 0, 50, 50);

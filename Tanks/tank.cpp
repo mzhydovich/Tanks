@@ -5,7 +5,10 @@ Tank::Tank(QObject *parent) :
 {
 
     angle = 0;     // Задаём угол поворота графического объекта
-    setRotation(angle);     // Устанавилваем угол поворота графического объекта
+    setRotation(angle);  // Устанавилваем угол поворота графического объекта
+    target= new Target();
+    health = 7;
+    maxhealth = health;
 }
 
 Tank::~Tank()
@@ -33,7 +36,11 @@ void Tank::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->drawRect(-20,-20,5,30);//left wheel
     painter->drawRect(15,-20,5,30);//right wheel
     painter->drawRect(-5,-5,10,30);//gun
-
+     target->setPos(mapToParent(0, 100));
+   // target->paint(painter, option, widget);
+     painter->setPen(Qt::NoPen);
+         painter->setBrush(Qt::red);
+         painter->drawRect(-20,-35, (int) 40*health/maxhealth,5);
     Q_UNUSED(option);
     Q_UNUSED(widget);
 }
@@ -43,16 +50,19 @@ void Tank::slotGameTimer1()
     if(GetAsyncKeyState(VK_LEFT)){
         angle -= 10;        // Задаём поворот на 10 градусов влево
         setRotation(angle); // Поворачиваем объект
-
+        target->angle -= 10;
+        target->setRotation(target->angle);
         if(!(this->scene()->collidingItems(this).isEmpty())){
             angle += 10;        // Задаём поворот на 10 градусов вправо
-            setRotation(angle); // Поворачиваем объект
+            setRotation(angle);
+            // Поворачиваем объект
         }
     }
     if(GetAsyncKeyState(VK_RIGHT)){
         angle += 10;        // Задаём поворот на 10 градусов вправо
         setRotation(angle); // Поворачиваем объект
-
+        target->angle += 10;        // Задаём поворот на 10 градусов влево
+       target->setRotation(target->angle);
                 /* Проверяем на столкновение,
                  * если столкновение произошло,
                  * то возвращаем героя обратно в исходную точку
@@ -64,6 +74,7 @@ void Tank::slotGameTimer1()
     }
     if(GetAsyncKeyState(VK_UP)){
         setPos(mapToParent(0, 5));
+      //  target->setPos(target->mapToParent(0, 5));
         /* Продвигаем объект на 5 пискселей вперёд
                                          * перетранслировав их в координатную систему
                                          * графической сцены
@@ -77,11 +88,14 @@ void Tank::slotGameTimer1()
                                          * перетранслировав их в координатную систему
                                          * графической сцены
                                          * */
+         // target->setPos(target->mapToParent(0, -5));
         if(!scene()->collidingItems(this).isEmpty()){
               setPos(mapToParent(0, 5));
         }
     }
-
+    if(GetAsyncKeyState('K')){
+    emit signalBullet(QPointF(this->x(),this->y()),QPointF(target->x(),target->y()));
+    }
     // borders check
     if(this->x() < -(width / 2)){
         this->setX(-(width / 2) + 1);       //left
@@ -143,19 +157,29 @@ void Tank::slotGameTimer2()
               setPos(mapToParent(0, 5));
         }
     }
-
+    if(GetAsyncKeyState('C')){
+    emit signalBullet(QPointF(this->x(),this->y()),QPointF(target->x(),target->y()));
+    }
     // borders check
-    if(this->x() - 10 < -690){
-        this->setX(-689);       //left
-    }
-    if(this->x() + 10 > 690){
-        this->setX(689);        //right
-    }
+    if(this->x() < -(width / 2)){
+    this->setX(-(width / 2) + 1);       //left
+}
+if(this->x() > (width / 2)){
+    this->setX((width/2) - 1);        //right
+}
 
-    if(this->y() - 10 < -690){
-        this->setY(-689);       //up
-    }
-    if(this->y() + 10 > 690){
-        this->setY(689);        //down
-    }
+if(this->y()< -(height / 2)){
+    this->setY(-(height / 2) + 1);       //up
+}
+if(this->y()> (height / 2)){
+    this->setY((height / 2) - 1);        //down
+}
+}
+
+void Tank::hit(int damage)
+{
+    health -= damage;   // Уменьшаем здоровье мишени
+    this->update(QRectF(-20,-20,40,40));    // Перерисовываем мишень
+    // Если здоровье закончилось, то инициируем смерть мишени
+    if(health <= 0) this->deleteLater();
 }

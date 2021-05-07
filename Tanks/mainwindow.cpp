@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     game_layout->setContentsMargins(0, 0, 0, 0);
     game_layout->setSpacing(0);
 
+
     //виджет со счётом, заливка просто для выделения
     QWidget* score = new QWidget();
     QPalette p(palette());
