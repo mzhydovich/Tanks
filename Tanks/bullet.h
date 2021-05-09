@@ -14,7 +14,9 @@ class Bullet : public QObject, public QGraphicsItem
     Q_OBJECT
 public:
     explicit Bullet(QObject *parent = 0);
-    explicit Bullet(QPointF start, qreal angle, QObject *parent = 0);
+
+    explicit Bullet(QPointF start, QPointF target, QObject *parent = 0);
+
     ~Bullet();
 
 signals:
@@ -34,3 +36,4 @@ private slots:
 };
 
 #endif // BULLET_H
+

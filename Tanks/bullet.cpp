@@ -8,7 +8,9 @@ static double TwoPi = 2.0 * Pi;
 Bullet::Bullet(QObject *parent) :
     QObject(parent), QGraphicsItem()
 {
-    angle = 50;     // Задаём угол поворота графического объекта
+
+    angle = 0;     // Задаём угол поворота графического объекта
+
     setRotation(angle);     // Устанавилваем угол поворота графического объекта
 }
 
@@ -22,16 +24,17 @@ static qreal normalizeAngle(qreal angle)
     return angle;
 }
 
-Bullet::Bullet(QPointF start, qreal angle, QObject *parent)
+
+Bullet::Bullet(QPointF start, QPointF target, QObject *parent)
     : QObject(parent), QGraphicsItem()
 {
-    qreal x=start.x()+10;
-    qreal y=start.y()+ sqrt(pow((10 / cos(angle * 180 / Pi)), 2) - 100);
+
     this->setRotation(0);   // Устанавливаем начальный разворот
     this->setPos(start);
-    QPointF end(x,y);// Устанавливаем стартовую позицию
+    //QPointF end(x,y);// Устанавливаем стартовую позицию
     // Определяем траекторию полёта пули
-    QLineF lineToTarget(start, end);
+    QLineF lineToTarget(start, target);
+
     // Угол поворота в направлении к цели
     qreal angleToTarget = ::acos(lineToTarget.dx() / lineToTarget.length());
     if (lineToTarget.dy() < 0)
@@ -51,7 +54,9 @@ Bullet::Bullet(QPointF start, qreal angle, QObject *parent)
     timerBullet = new QTimer();
     // И подключаем его к слоту для обработки полёта пули
     connect(timerBullet, &QTimer::timeout, this, &Bullet::slotTimerBullet);
-    timerBullet->start(7);
+
+    timerBullet->start(20);
+
 }
 
 Bullet::~Bullet()
@@ -81,6 +86,7 @@ void Bullet::slotTimerBullet()
     /* Проверка выхода за границы поля
      * Если пуля вылетает за заданные границы, то пулю необходимо уничтожить
      * */
+
     if(this->x() < -690){
         this->deleteLater();
     }
@@ -92,6 +98,7 @@ void Bullet::slotTimerBullet()
         this->deleteLater();
     }
     if(this->y() > 690){
+
         this->deleteLater();
     }
 }

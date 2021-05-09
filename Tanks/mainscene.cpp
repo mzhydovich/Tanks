@@ -1,7 +1,9 @@
 #include "mainscene.h"
 #include "map_creator.h"
+
 #include <QApplication>
 #include <QDebug>
+
 MainScene::MainScene(QWidget *parent)
     : QGraphicsView(parent) {
 
@@ -35,16 +37,26 @@ MainScene::MainScene(QWidget *parent)
     //scene->addLine(0,0, this->width() ,this->height(), QPen(Qt::black));//верхняя граница
 
     MapCreator map_creator;
-    map_creator.setFile("C:\\Users\\user\\Desktop\\kursovaya\\Tanks\\Tanks\\map.txt");
+    map_creator.setFile("C:\\Users\\user\\Desktop\\kursovaya\\Tanks\\Tank\\map.txt");
     map_creator.CreateMap(scene);
 
     tank1 = new Tank();
     tank2 = new Tank();
 
+Target* target1=new Target();
+tank1->target=target1;
+scene->addItem(tank1->target);
+//tank1->target->setPos(-35,40);
+
+Target* target2=new Target();
+tank2->target=target2;
+scene->addItem(tank2->target);
+//tank2->target->setPos(50,-30);
+
     scene->addItem(tank1);   /// Добавляем на сцену треугольник
-    tank1->setPos(0,0);      /// Устанавливаем треугольник в центр сцены
+    tank1->setPos(-680,-300);      /// Устанавливаем треугольник в центр сцены
     scene->addItem(tank2);   /// Добавляем на сцену треугольник
-    tank2->setPos(50,50);
+    tank2->setPos(700,330);
 
     timer = new QTimer();
     connect(timer, &QTimer::timeout, tank1, &Tank::slotGameTimer1);
@@ -56,6 +68,15 @@ MainScene::MainScene(QWidget *parent)
 
 
     this->setScene(scene);
+    connect (tank1,&Tank::signalBullet,this,&MainScene::slotBullet);
+    connect (tank2,&Tank::signalBullet,this,&MainScene::slotBullet);
+
+}
+
+void MainScene::slotBullet(QPointF start,QPointF target)
+{
+// Добавляем на сцену пулю
+scene->addItem(new Bullet(start,target));
 }
 
 void MainScene::slotBullet(QPointF start,qreal angle)

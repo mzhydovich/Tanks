@@ -15,6 +15,7 @@ SOURCES += \
     mainwindow.cpp \
     map_creator.cpp \
     tank.cpp \
+    target.cpp \
     wall.cpp
 
 HEADERS += \
@@ -23,6 +24,7 @@ HEADERS += \
     mainwindow.h \
     map_creator.h \
     tank.h \
+    target.h \
     wall.h
 FORMS +=
 
