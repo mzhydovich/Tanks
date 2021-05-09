@@ -1,5 +1,20 @@
 #include "tank.h"
 
+static int normalizeAngle(qreal angle)
+{
+    if(angle < 0) {
+        while (angle < -90) {
+            angle += 90;
+        }
+    }
+    if(angle > 0) {
+        while (angle > 90) {
+            angle -= 90;
+        }
+    }
+    return angle;
+}
+
 Tank::Tank(QObject *parent) :
     QObject(parent), QGraphicsItem()
 {
@@ -44,6 +59,10 @@ void Tank::slotGameTimer1()
         angle -= 10;        // Задаём поворот на 10 градусов влево
         setRotation(angle); // Поворачиваем объект
 
+        if (angle == -360) {
+            angle = 0;
+        }
+
         if(!(this->scene()->collidingItems(this).isEmpty())){
             angle += 10;        // Задаём поворот на 10 градусов вправо
             setRotation(angle); // Поворачиваем объект
@@ -53,6 +72,9 @@ void Tank::slotGameTimer1()
         angle += 10;        // Задаём поворот на 10 градусов вправо
         setRotation(angle); // Поворачиваем объект
 
+        if (angle == 360) {
+            angle = 0;
+        }
                 /* Проверяем на столкновение,
                  * если столкновение произошло,
                  * то возвращаем героя обратно в исходную точку
@@ -70,6 +92,12 @@ void Tank::slotGameTimer1()
                                          * */
         if(!scene()->collidingItems(this).isEmpty()){
                     setPos(mapToParent(0, -5));
+                    if (normalizeAngle(angle) < 0) {
+                        setPos(mapToParent(5, 0));
+                    }
+                    if (normalizeAngle(angle) > 0) {
+                        setPos(mapToParent(-5, 0));
+                    }
         }
     }
     if(GetAsyncKeyState(VK_DOWN)){
@@ -80,6 +108,10 @@ void Tank::slotGameTimer1()
         if(!scene()->collidingItems(this).isEmpty()){
               setPos(mapToParent(0, 5));
         }
+    }
+    if(GetAsyncKeyState(VK_SPACE)){
+        emit signalBullet(QPointF(this->x(),this->y()),angle);
+    //qDebug() << 1;
     }
 
     // borders check

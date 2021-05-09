@@ -49,9 +49,17 @@ MainScene::MainScene(QWidget *parent)
     timer = new QTimer();
     connect(timer, &QTimer::timeout, tank1, &Tank::slotGameTimer1);
 
-    //timer2 = new QTimer();
     connect(timer, &QTimer::timeout, tank2, &Tank::slotGameTimer2);
     timer->start(1000 / 50);
-    //timer2->start(1000 / 50);
+
+    connect(tank1,&Tank::signalBullet,this,&MainScene::slotBullet);
+
+
     this->setScene(scene);
+}
+
+void MainScene::slotBullet(QPointF start,qreal angle)
+{
+// Добавляем на сцену пулю
+scene->addItem(new Bullet(start,angle));
 }

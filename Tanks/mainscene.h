@@ -6,6 +6,7 @@
 #include <QPainter>
 #include "wall.h"
 #include "tank.h"
+#include "bullet.h"
 #include <QSize>
 #include <QWidget>
 
@@ -26,7 +27,10 @@ private:
     /* Объявляем игровой таймер, благодаря которому
                                  * будет производиться изменения положения объекта на сцене
                                  * При воздействии на него клавишами клавиатуры
-                                 * */
+
+                   * */
+private slots:
+    void slotBullet(QPointF start, qreal angle);
 };
 
 #endif // MAINSCENE_H

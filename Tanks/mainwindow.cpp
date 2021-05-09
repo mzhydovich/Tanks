@@ -6,7 +6,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    this->showMaximized();
+    //this->showMaximized();
     //this->setGeometry(QGuiApplication::screens().at(0)->availableGeometry());
 
     // виджет с игровым окном
