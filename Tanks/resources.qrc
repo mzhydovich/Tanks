@@ -1,15 +1,15 @@
 <RCC>
     <qresource prefix="/bg">
-        <file>gamemenu.jpg</file>
-        <file>menu.png</file>
+        <file>images/gamemenu.jpg</file>
+        <file>images/menu.png</file>
     </qresource>
     <qresource prefix="/textures">
-        <file>box.jpg</file>
-        <file>bricks.png</file>
-        <file>forest.jpg</file>
+        <file>images/box.jpg</file>
+        <file>images/bricks.png</file>
+        <file>images/forest.jpg</file>
     </qresource>
     <qresource prefix="/icons">
-        <file>icon.png</file>
+        <file>images/icon.png</file>
     </qresource>
     <qresource prefix="/styles">
         <file>styles.css</file>

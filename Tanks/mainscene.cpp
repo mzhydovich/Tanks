@@ -40,7 +40,7 @@ MainScene::MainScene(QWidget *parent)
 
 
     MapCreator map_creator;
-    map_creator.setFile("C:\\Users\\user\\Desktop\\kursovaya\\Tanks\\Tanks\\map_1_2.txt");
+    map_creator.setFile("C:\\Users\\user\\Desktop\\kursovaya\\Tanks\\Tanks\\maps\\map_1_2.txt");
     map_creator.CreateMap(scene);
 
     Tank::num_of_tanks = 0;

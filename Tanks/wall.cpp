@@ -21,7 +21,7 @@ void Wall::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     //QImage texture_image1(file_path + "/forest.jpg");
     //QString file_path = PRO_FILE_PWD;
     //QImage texture_image1(file_path + "/box.jpg");
-    QImage texture_image(":/textures/bricks.png");
+    QImage texture_image(":/textures/images/bricks.png");
 
     //QImage texture_image;
 

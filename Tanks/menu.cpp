@@ -15,7 +15,7 @@ Menu::Menu(QWidget *parent) : QWidget(parent)
     QPalette palette = this->palette();
 
     palette.setBrush(QPalette::Window, QBrush
-                     (QPixmap(":/bg/menu.png").scaled(QSize(WINDOW_WIDTH, WINDOW_HEIGHT), Qt::IgnoreAspectRatio)));
+                     (QPixmap(":/bg/images/menu.png").scaled(QSize(WINDOW_WIDTH, WINDOW_HEIGHT), Qt::IgnoreAspectRatio)));
     this->setPalette(palette);
 
     menu_layout->setContentsMargins(WINDOW_WIDTH/3, WINDOW_HEIGHT/4, WINDOW_WIDTH/3, WINDOW_HEIGHT/4);

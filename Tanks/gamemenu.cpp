@@ -18,7 +18,7 @@ GameMenu::GameMenu(QWidget *parent) : QWidget(parent)
 
     //QString file_path = PRO_FILE_PWD;
     palette.setBrush(QPalette::Window, QBrush
-                     (QPixmap(":/bg/gamemenu.jpg").scaled(QSize(WINDOW_WIDTH, WINDOW_HEIGHT), Qt::IgnoreAspectRatio)));
+                     (QPixmap(":/bg/images/gamemenu.jpg").scaled(QSize(WINDOW_WIDTH, WINDOW_HEIGHT), Qt::IgnoreAspectRatio)));
     this->setPalette(palette);
 
     menu_layout->setContentsMargins(WINDOW_WIDTH/3, WINDOW_HEIGHT/5, WINDOW_WIDTH/3, WINDOW_HEIGHT/5);
