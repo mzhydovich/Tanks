@@ -7,40 +7,40 @@
 #include "wall.h"
 #include "tank.h"
 #include "bullet.h"
-
 #include "target.h"
-
 #include <QSize>
 #include <QWidget>
+
+#include <string>
 
 
 class MainScene : public QGraphicsView
 {
+    Q_OBJECT
 public:
     explicit MainScene(QWidget *parent = 0);
-
+signals:
+  //  void signalDamage(int);
+    void signalConnect(int,int);
 private:
 
-
-    QGraphicsScene      *scene;     // Объявляем сцену для отрисовки
+static QList<QGraphicsItem *> target_tank1;//target list
+static QList<QGraphicsItem *> target_tank2;//target list
+    QGraphicsScene      *scene;     // Declaring the scene for rendering
     Tank* tank1;
     QTimer          *timer;
     Tank* tank2;
     QTimer          *timer2;
 
-    /* Объявляем игровой таймер, благодаря которому
-                                 * будет производиться изменения положения объекта на сцене
-                                 * При воздействии на него клавишами клавиатуры
-<<<<<<< HEAD
-
-                   * */
-private slots:
-    void slotBullet(QPointF start, qreal angle);
-=======
+    /* We declare a game timer, thanks to which
+                                 * the position of the object on the scene will be changed
+                                 * When acted on by keyboard keys
                                  * */
+
 private slots:
     void slotBullet(QPointF start,QPointF target);
->>>>>>> 9a651db604679316cb3b4bf782e28a017056e1f7
+     static void slothit(QGraphicsItem *item);
+
 };
 
 #endif // MAINSCENE_H

@@ -11,11 +11,8 @@
 #include "windows.h"
 #include <QScreen>
 #include <QGuiApplication>
-
-#include <QPointF>
-
 #include "target.h"
-
+#include <QKeyEvent>
 
 class Tank : public QObject, public QGraphicsItem
 {
@@ -23,11 +20,14 @@ class Tank : public QObject, public QGraphicsItem
 public:
     explicit Tank(QObject *parent = 0);
     ~Tank();
-Target* target;
-void hit(int damdge);
-signals:
+    Target* target;
+    void hit(int damdge);
 
+    static int num_of_tanks;
+
+signals:
  void signalBullet(QPointF start ,QPointF target);
+ void signalDamage(int health,int ID);
 
 public slots:
     void slotGameTimer1(); //moving by VK
@@ -43,14 +43,11 @@ private:
     int width = QGuiApplication::screens().at(0)->availableGeometry().width();
     int height = QGuiApplication::screens().at(0)->availableGeometry().height();
 
-
-    //int angle; //angle
-
-
     qreal angle; //angle
 int health;
 int maxhealth;
 
+int tank_ID;
 };
 
 #endif // TANK_H

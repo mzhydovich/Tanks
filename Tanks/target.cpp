@@ -3,8 +3,8 @@ Target::Target(QObject *parent) :
     QObject(parent), QGraphicsItem()
 {
 
-    angle = 0;     // Задаём угол поворота графического объекта
-    setRotation(angle);     // Устанавилваем угол поворота графического объекта
+    angle = 0;     // Setting the rotation angle of the graphic object
+    setRotation(angle);     // Set the angle of rotation of the graphic object
 }
 
 Target::~Target()
@@ -14,7 +14,7 @@ Target::~Target()
 
 QRectF Target::boundingRect() const
 {
-    return QRectF(-20, -25, 40, 50);   /// Ограничиваем область, в которой лежит треугольник
+    return QRectF(-20, -25, 40, 50);
 }
 
 QPainterPath Target::shape() const

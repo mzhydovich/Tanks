@@ -4,7 +4,10 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QVBoxLayout>
-#include "mainscene.h"
+
+#include "game.h"
+#include "menu.h"
+#include "gamemenu.h"
 
 class MainWindow : public QMainWindow
 {
@@ -12,11 +15,21 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    //~MainWindow();
+    ~MainWindow();
 
 private:
 
-    QWidget* game_window;
+    Game* game_window;
+
+private slots:
+    void Play();
+    void Settings();
+    void Exit();
+   void slotGameOver(int ID);
+
+    void openMenu();
+    void closeMenu();
+    void NewGame();
 };
 
 
