@@ -37,3 +37,7 @@ map_creator.setFile("{url_to_my_map}\\my_map_name.txt");
 
 ![Third map](https://github.com/magziim/Tanks/blob/main/Screenshots/forest.png)
 ![GameMenu](https://github.com/magziim/Tanks/blob/main/Screenshots/gamemenu.png)
+
+## How to play ?
+
+**You need to compile the game using Qt Creator**
