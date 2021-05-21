@@ -37,13 +37,15 @@ void MapCreator::CreateMap(QGraphicsScene *scene){
                 scene->addItem(wall);
                 wall->setPos((col - 1) * wall_size -w, row * wall_size-h + 75 + 1);
             }
-            /*else if (ch == '2') {
+            /*
+            else if (ch == '2') {
 
                 Wall* wall = new Wall(scene);
                 wall->is_box = 1;
                 scene->addItem(wall);
                 wall->setPos((col - 1) * wall_size -w, row * wall_size-h + 75 + 1);
-            }*/
+            }
+            */
         }
 
         file.close();

@@ -17,7 +17,7 @@ class Wall : public QObject, public QGraphicsItem
 public:
     explicit Wall(QObject *parent = 0);
     ~Wall();
-    bool is_box = 0;
+    //bool is_box = 0;
 
 protected:
     QRectF boundingRect() const;

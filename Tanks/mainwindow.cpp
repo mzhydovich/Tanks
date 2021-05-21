@@ -5,7 +5,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    this->setWindowIcon(QIcon(":/icons/icon.png"));
+    this->setWindowIcon(QIcon(":/icons/images/icon.png"));
 
     QFile styleF;
 
